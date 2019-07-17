@@ -324,6 +324,27 @@ Other Style Guides
     const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
     ```
 
+  <a name="objects--deep-copy"></a>
+  - [3.8a](#objects--deep-copy) Use `lodash.cloneDeep` to do deep copy objects.
+
+    ```javascript
+    // very bad
+    const original = { a: 1, b: 2 };
+    const copy = Object.assign({}, original, { c: 3 }); // copy => { a: 1, b: 2, c: 3 }
+
+    // bad
+    const original = { a: 1, b: 2 };
+    const copy = { ...original, c: 3 }; // copy => { a: 1, b: 2, c: 3 }
+
+    const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
+
+    // good
+    import {cloneDeep} from 'lodash';
+
+    const original = { a: 1, b: 2 };
+    const copy = cloneDeep(original, { c: 3 }); // copy => { a: 1, b: 2, c: 3 }
+    ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Arrays
@@ -367,6 +388,28 @@ Other Style Guides
 
     // good
     const itemsCopy = [...items];
+    ```
+
+  <a name="es6-array-deep-clone"></a><a name="4.3a"></a>
+  - [4.3a](#es6-array-deep-clone) Use `lodash.deepClone` to deep copy arrays.
+
+    ```javascript
+    // ver bad
+    const len = items.length;
+    const itemsCopy = [];
+    let i;
+
+    for (i = 0; i < len; i += 1) {
+      itemsCopy[i] = items[i];
+    }
+
+    // bad
+    const itemsCopy = [...items];
+
+    // good
+    import {cloneDeep} from 'lodash';
+
+    const itemsCopy = cloneDeep(items);
     ```
 
   <a name="arrays--from"></a>
